@@ -239,17 +239,16 @@
 		(lambda (dj) (if (not (is-oversize? dj)) (count-one-atom dj)))
 		(make-sections parse)
 	)
-	(if EXPORT-MST
+	(if (not (equal? EXPORT-MST "#f"))
 		(if file-cnt-mode
-			(export-mst-parse (car (string-split plain-text #\newline)) parse SENT-NBR "mst-parses.ull")
-			(export-mst-parse plain-text parse SENT-NBR "mst-parses.ull")
+			(export-mst-parse (car (string-split plain-text #\newline)) parse SENT-NBR EXPORT-MST)
+			(export-mst-parse plain-text parse SENT-NBR EXPORT-MST)
 		)
 	)
-
 	parse ; return the parse
 )
 
 ; Wrapper for backwards compatibility
 (define-public (observe-mst plain-text)
-	(observe-mst-mode plain-text "any" 1 #f #f)
+	(observe-mst-mode plain-text "any" 1 #f "#f")
 )

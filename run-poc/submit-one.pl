@@ -73,7 +73,7 @@ if ($ARGV[3] eq "file")
 		if (/^\n$/) {
 			chomp($buffer);
 			$sent_nbr += 1;
-			send_stuff("($ARGV[2] \"$buffer\" \"$sent_nbr\" \"$ARGV[3]\" $ARGV[4] $ARGV[5])\n");
+			send_stuff("($ARGV[2] \"$buffer\" \"$sent_nbr\" \"$ARGV[3]\" $ARGV[4] \"$ARGV[5]\")\n");
 			my $elapsed = time() - $start_time;
 			print "submit-one (elapsed $elapsed): $_\n";
 			$buffer="";
