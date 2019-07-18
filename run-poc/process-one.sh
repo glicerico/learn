@@ -43,9 +43,11 @@ case $1 in
       observe="observe-mst-mode"
       if [[ "$exp_parses" != "#f" ]]; then
          # create parses directory if missing
-         mkdir -p $(dirname "$parsesdir/$rest")
+         mkdir -p $(dirname "$parsesdir/$rest");
+         params="$cnt_mode $mst_dist ${rest}.ull"; # pass parses filename
+      else
+         params="$cnt_mode $mst_dist $exp_parses"; # don't print parses
       fi
-      params="$cnt_mode $mst_dist ${rest}.ull"
       ;;
 esac
 

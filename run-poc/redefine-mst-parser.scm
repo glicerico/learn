@@ -221,7 +221,7 @@
   
   Build mst-parses using MI calculated beforehand.
   When MST-DIST is true, word-pair MI values are adjusted for distance.
-  Obtained parses are exported to file if EXPORT-MST is true.
+  Obtained parses are exported to file named EXPORT-MST, unless EXPORT-MST is #f.
   This is the second part of the learning algo: simply count how
   often pseudo-disjuncts show up.
 "
