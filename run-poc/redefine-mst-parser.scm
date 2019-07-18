@@ -124,7 +124,24 @@
 
 	(define mi-source (add-pair-freq-api pair-obj))
 
-	(define scorer (make-score-fn mi-source 'pair-fmi))
+	;(define scorer (make-score-fn mi-source 'pair-fmi))
+
+	(define bad-mi -1e40)
+
+	(define mi-threshold 2)
+
+	(define scorer
+		(lambda (left-atom right-atom distance)
+			(define wpr
+				(if (and (not (null? left-atom)) (not (null? right-atom)))
+					(mi-source 'get-pair left-atom right-atom)
+					'()))
+			(define real-mi
+				(if (null? wpr) bad-mi (mi-source 'pair-fmi wpr)))
+
+			(if (> mi-threshold real-mi) bad-mi real-mi)
+		)
+	)
 
 	(define dist-scorer (make-distance-scorer scorer DIST-MULT))
 
