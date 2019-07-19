@@ -128,7 +128,7 @@
 
 	(define bad-mi -1e40)
 
-	(define mi-threshold 2)
+	(define mi-threshold 0.9)
 
 	(define scorer
 		(lambda (left-atom right-atom distance)
@@ -146,7 +146,8 @@
 	(define dist-scorer (make-distance-scorer scorer DIST-MULT))
 
 	; Process the list of words.
-	(mst-parse-atom-seq word-list dist-scorer)
+	(graph-add-bridges (graph-add-linear (mst-parse-atom-seq word-list dist-scorer) (atom-list->numa-list word-list)))
+	;(mst-parse-atom-seq word-list dist-scorer)
 )
 
 ; wrapper for backwards compatibility
@@ -205,7 +206,7 @@
 	; Print the links if they are not bad-pair
 	(for-each
 		(lambda (l) ; links
-			(if (> (get-mi l) -1.0e10) ; bad-MI
+			;(if (> (get-mi l) -1.0e50) ; bad-MI
 				(display
 					(format #f "~a ~a ~a ~a ~a\n"
 						(get-lindex l)
@@ -213,7 +214,7 @@
 						(get-rindex l)
 						(get-rword l)
 						(get-mi l))
-				file-port)))
+				file-port));)
 		(sort mstparse link-comparator)
 	)
 
