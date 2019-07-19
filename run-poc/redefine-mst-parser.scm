@@ -128,7 +128,7 @@
 
 	(define bad-mi -1e40)
 
-	(define mi-threshold 0.9)
+	(define mi-threshold 2)
 
 	(define scorer
 		(lambda (left-atom right-atom distance)
