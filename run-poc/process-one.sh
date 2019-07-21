@@ -23,7 +23,7 @@ parsesdir=mst-parses
 cnt_mode="clique-dist"
 cnt_reach=6
 mst_dist=(1)
-mi-threshold=-20
+mi_threshold=-20
 exp_parses="#t"
 split_sents="#t"
 source ./config/params.txt # overrides default values, if present
@@ -45,9 +45,9 @@ case $1 in
       if [[ "$exp_parses" != "#f" ]]; then
          # create parses directory if missing
          mkdir -p $(dirname "$parsesdir/$rest");
-         params="$cnt_mode $mst_dist $mi-threshold ${rest}.ull"; # pass parses filename
+         params="$cnt_mode $mst_dist $mi_threshold ${rest}.ull"; # pass parses filename
       else
-         params="$cnt_mode $mst_dist $mi-threshold $exp_parses"; # don't print parses
+         params="$cnt_mode $mst_dist $mi_threshold $exp_parses"; # don't print parses
       fi
       ;;
 esac
