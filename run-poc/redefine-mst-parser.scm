@@ -101,8 +101,14 @@
 
 	(define dist-scorer (make-distance-scorer scorer DIST-MULT))
 
+	(define wordlist (word-list (word-strs current-sentence)))
+
 	; Entry point, call parser on atomized sentence with ad-hoc scorer
-	(mst-parse-atom-seq (word-list (word-strs current-sentence)) dist-scorer)
+	; then calls graph-add-linear and graph-add-bridges to sequentially connect
+	; isolated atoms or groups of atoms
+	(graph-add-bridges 
+		(graph-add-linear 
+			(mst-parse-atom-seq wordlist dist-scorer) (atom-list->numa-list wordlist)))
 
 )
 
