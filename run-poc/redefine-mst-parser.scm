@@ -24,7 +24,9 @@
 	)
 )
 
-(define-public (mst-parse-text-file plain-textblock DIST-MULT)
+(define bad-mi -1e40) ; dummy MI when no atom-pair is found or below threshold
+
+(define-public (mst-parse-text-file plain-textblock DIST-MULT mi-threshold)
 "
 	Procedure to MST-parse sentences coming from an instance-pair weight file.
 "
@@ -91,8 +93,9 @@
 		(lambda (left-atom right-atom distance)
 			(define left-index (inexact->exact (string->number (cog-name (gdr left-atom)))))
 			(define right-index (inexact->exact (string->number (cog-name (gdr right-atom)))))
+			(define real-mi	(array-ref weights-array left-index right-index))
 
-			(array-ref weights-array left-index right-index)
+			(if (> mi-threshold real-mi) bad-mi real-mi)
 		)
 	)
 
@@ -123,10 +126,6 @@
 			(else (make-any-link-api))))
 
 	(define mi-source (add-pair-freq-api pair-obj))
-
-	;(define scorer (make-score-fn mi-source 'pair-fmi))
-
-	(define bad-mi -1e40)
 
 	(define scorer
 		(lambda (left-atom right-atom distance)
@@ -204,7 +203,6 @@
 	; Print the links if they are not bad-pair
 	(for-each
 		(lambda (l) ; links
-			;(if (> (get-mi l) -1.0e50) ; bad-MI
 				(display
 					(format #f "~a ~a ~a ~a ~a\n"
 						(get-lindex l)
@@ -212,7 +210,7 @@
 						(get-rindex l)
 						(get-rword l)
 						(get-mi l))
-				file-port));)
+				file-port))
 		(sort mstparse link-comparator)
 	)
 
@@ -235,7 +233,7 @@
 	(define file-cnt-mode (if (equal? CNT-MODE "file") #t #f))
 	(define parse 
 		(if file-cnt-mode
-			(mst-parse-text-file plain-text MST-DIST)
+			(mst-parse-text-file plain-text MST-DIST MI-THRESHOLD)
 			(mst-parse-text-mode plain-text CNT-MODE MST-DIST MI-THRESHOLD)
 		)
 	)

@@ -21,7 +21,7 @@
 #
 
 die "Wrong number of args!" if ($#ARGV < 4);
-my @dist_mult = @ARGV[4..$#ARGV-1];
+my @dist_mult = @ARGV[4..$#ARGV-2];
 
 # Use netcat only for pair-counting, not for mst-parsing (this may cause
 # problems if we care about disjunct counting, but for now we don't care
