@@ -104,7 +104,7 @@
 )
 
 
-(define-public (mst-parse-text-mode plain-text cnt-mode DIST-MULT)
+(define-public (mst-parse-text-mode plain-text cnt-mode DIST-MULT mi-threshold)
 
 	; Assuming input is tokenized, this procedure separates by spaces 
 	; and adds LEFT-WALL
@@ -127,8 +127,6 @@
 	;(define scorer (make-score-fn mi-source 'pair-fmi))
 
 	(define bad-mi -1e40)
-
-	(define mi-threshold 2)
 
 	(define scorer
 		(lambda (left-atom right-atom distance)
@@ -224,7 +222,7 @@
 	(close-port file-port)
 )
 
-(define-public (observe-mst-mode plain-text CNT-MODE MST-DIST EXPORT-MST)
+(define-public (observe-mst-mode plain-text CNT-MODE MST-DIST EXPORT-MST MI-THRESHOLD)
 "
   observe-mst-mode -- update pseduo-disjunct counts by observing raw text.
   
@@ -238,7 +236,7 @@
 	(define parse 
 		(if file-cnt-mode
 			(mst-parse-text-file plain-text MST-DIST)
-			(mst-parse-text-mode plain-text CNT-MODE MST-DIST)
+			(mst-parse-text-mode plain-text CNT-MODE MST-DIST MI-THRESHOLD)
 		)
 	)
 
