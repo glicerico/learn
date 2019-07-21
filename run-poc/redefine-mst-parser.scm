@@ -220,7 +220,7 @@
 	(close-port file-port)
 )
 
-(define-public (observe-mst-mode plain-text CNT-MODE MST-DIST EXPORT-MST MI-THRESHOLD)
+(define-public (observe-mst-mode plain-text CNT-MODE MST-DIST MI-THRESHOLD EXPORT-MST)
 "
   observe-mst-mode -- update pseduo-disjunct counts by observing raw text.
   
