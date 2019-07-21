@@ -222,6 +222,30 @@
 (define check-MST-text "Checking MST-parses: 'file' mode, w/dist-mult")
 (test-assert check-MST-text (equal? parse-2 expected-parse-2))
 
+; Manually calculated, expected parse for mi-threshold
+(define expected-parse-3
+	(append
+		(append 
+			(append 
+				(list (cons (cons w3 w4) -inf.0))
+				(list (cons (cons w2 w3) -inf.0))
+			)
+			(list (cons (cons w2 w5) 5))
+		)
+		(list (cons (cons w1 w2) 2.1))
+	)
+)
+
+; Third test: restore no dist-multiplier, add mi-threshold
+(set! dist-mult '(1 1))
+(define mi-threshold 2.06)
+; Parse the sentences with mi-threshold
+(define parse-3 (observe-mst-mode text-block cnt-mode dist-mult mi-threshold "#f"))
+(display parse-3)
+
+; Test that MST-parses are as expected
+(define check-MST-text "Checking MST-parses: 'file' mode, w/mi-threshold")
+(test-assert check-MST-text (equal? parse-3 expected-parse-3))
 ; -------------------------------------------------
 ; Close testing database and suite
 (sql-close)
