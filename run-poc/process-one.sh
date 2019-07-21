@@ -45,7 +45,7 @@ case $1 in
       if [[ "$exp_parses" != "#f" ]]; then
          # create parses directory if missing
          mkdir -p $(dirname "$parsesdir/$rest");
-         params="$cnt_mode $mst_dist ${rest}.ull"; # pass parses filename
+         params="$cnt_mode $mst_dist $mi-threshold ${rest}.ull"; # pass parses filename
       else
          params="$cnt_mode $mst_dist $mi-threshold $exp_parses"; # don't print parses
       fi

@@ -79,7 +79,7 @@ if ($ARGV[3] eq "file")
 		if (/^\n$/) {
 			chomp($buffer);
 			open NC, $netcat || die "nc failed: $!\n";
-			print NC "($ARGV[2] \"$buffer\" \"$ARGV[3]\" '(@dist_mult) \"$ARGV[5]\")\n";
+			print NC "($ARGV[2] \"$buffer\" \"$ARGV[3]\" '(@dist_mult) \"$ARGV[5]\" \"$ARGV[6]\")\n";
 			# $sent_nbr += 1;
 			# send_stuff("($ARGV[2] \"$buffer\" \"$sent_nbr\" \"$ARGV[3]\" $ARGV[4] \"$ARGV[5]\")\n");
 			my $elapsed = time() - $start_time;
@@ -107,7 +107,7 @@ else
  			# print NC "($ARGV[2] \"$_\" \"$ARGV[3]\" $ARGV[4])\n"; }
 			#{ send_stuff("($ARGV[2] \"$_\" \"$ARGV[3]\" $ARGV[4])\n"); }
 		elsif ( $ARGV[2] eq "observe-mst-mode" )
-			{ print NC "($ARGV[2] \"$_\" \"$ARGV[3]\" '(@dist_mult) \"$ARGV[5]\")\n"; }
+			{ print NC "($ARGV[2] \"$_\" \"$ARGV[3]\" '(@dist_mult) \"$ARGV[5]\" \"$ARGV[6]\")\n"; }
 			#{ $sent_nbr += 1;
 			#send_stuff("($ARGV[2] \"$_\" \"$sent_nbr\" \"$ARGV[3]\" $ARGV[4] \"$ARGV[5]\")\n"); }
 		my $elapsed = time() - $start_time;
