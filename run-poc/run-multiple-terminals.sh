@@ -28,16 +28,16 @@ launcher=launch-cogserver.scm
 
 # Start multiple sessions (use byobu so that the scroll bars actually work)
 # Call launch-??.scm to start cogserver
-byobu new-session -d -n 'cntl' '$SHELL'
+tmux new-session -d -n 'cntl' '$SHELL'
 case $# in
    3)
-      byobu new-window -n 'cogsrv' "nice guile -l $launcher -- --mode $1 --lang $2 --db $3; $SHELL"
+      tmux new-window -n 'cogsrv' "nice guile -l $launcher -- --mode $1 --lang $2 --db $3; $SHELL"
       ;;
    4)
-      byobu new-window -n 'cogsrv' "nice guile -l $launcher -- --mode $1 --lang $2 --db $3 --user $4; $SHELL"
+      tmux new-window -n 'cogsrv' "nice guile -l $launcher -- --mode $1 --lang $2 --db $3 --user $4; $SHELL"
       ;;
    *)
-      byobu new-window -n 'cogsrv' "nice guile -l $launcher -- --mode $1 --lang $2 --db $3 --user $4 --password $5; $SHELL"
+      tmux new-window -n 'cogsrv' "nice guile -l $launcher -- --mode $1 --lang $2 --db $3 --user $4 --password $5; $SHELL"
       ;;
 esac
 sleep 2;
